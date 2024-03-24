@@ -1,6 +1,7 @@
 'use client'
 import Container from "@/components/Container";
 import Navbar from "@/components/Navbar";
+import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius";
 import axios from "axios";
 import { format, parseISO } from "date-fns";
 import Image from "next/image";
@@ -97,12 +98,34 @@ export default function Home() {
                 <p>{ format(parseISO(firstData?.dt_txt ??''), 'EEEE') }</p>
                 <p className="text-lg">({ format(parseISO(firstData?.dt_txt ??''), 'dd.MM.yyyy') })</p>
               </h2>
-              <Container className=" gap-10 px-6 items-center" ></Container>
+              <Container className=" gap-10 px-6 items-center" >
+                <div className=" flex flex-col px-4">
+                  <span className="text-5xl">
+                    {convertKelvinToCelsius(firstData?.main.temp ?? 296.37)}°
+                  </span>
+                  <p className="text-xs space-x-1 whitespace-nowrap">
+                    <span>Feels like</span>
+                    <span>
+                    {convertKelvinToCelsius(firstData?.main.feels_like ?? 0)}°
+                    </span>
+                  </p>
+                  <p className="text-xs space-x-2">
+                    <span>
+                      {convertKelvinToCelsius(firstData?.main.temp_min ?? 0)}°↓
+                      {" "}
+                    </span>
+                    <span>
+                      {" "}
+                      {convertKelvinToCelsius(firstData?.main.temp_max ?? 0)}°↑
+                    </span>
+                  </p>
+                </div>
+              </Container>
             </div>
           </section>
           {/* 7 day forecast data */}
         </main>
       </div>
-
+    /* 56:42 */
   );
 }
