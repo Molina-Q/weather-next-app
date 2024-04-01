@@ -143,6 +143,9 @@ export default function Home() {
             </div>
           </section>
           {/* 7 day forecast data */}
+          <section className="flex w-full flex-col gap-4">
+            <p className="text-2xl">Forecast (7 days)</p>
+          </section>
         </main>
       </div>
     /* 56:42 */
