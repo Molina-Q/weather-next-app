@@ -4,10 +4,11 @@ import Navbar from "@/components/Navbar";
 import WeatherDetails from "@/components/WeatherDetails";
 import WeatherIcon from "@/components/WeatherIcon";
 import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius";
+import { convertWindSpeed } from "@/utils/covertWindSpeed";
 import { getDayOrNightIcon } from "@/utils/getDayOrNightIcon";
+import { metersToKilometers } from "@/utils/metersToKilometers";
 import axios from "axios";
-import { format, parseISO } from "date-fns";
-import Image from "next/image";
+import { format, fromUnixTime, parseISO } from "date-fns";
 import { useQuery } from "react-query";
 
 
@@ -149,7 +150,14 @@ export default function Home() {
                 <WeatherIcon iconName={getDayOrNightIcon(firstData?.weather[0].icon ?? '', firstData?.dt_txt ?? '')} />
               </Container>
               <Container className="bg-yellow-300/80 px-6 gap-4 justify-between overflow-x-auto">
-                <WeatherDetails visability={} airPressure={} />
+                <WeatherDetails 
+                  visability={metersToKilometers(firstData?.visibility ?? 10000)} 
+                  airPressure={`${firstData?.main.pressure} hPa`}
+                  humidity={`${firstData?.main.humidity}%`}
+                  sunrise={format(fromUnixTime(data?.city.sunrise ?? 1702949452), 'hh:mm')}
+                  sunset={format(fromUnixTime(data?.city.sunset ?? 1702517657), 'HH:mm')}
+                  windSpeed={convertWindSpeed(firstData?.wind.speed ?? 1.64)}
+                />
               </Container>
               {/* right */}
             </div>
