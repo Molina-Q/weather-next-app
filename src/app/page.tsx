@@ -1,6 +1,7 @@
 'use client'
 import Container from "@/components/Container";
 import Navbar from "@/components/Navbar";
+import WeatherDetails from "@/components/WeatherDetails";
 import WeatherIcon from "@/components/WeatherIcon";
 import { convertKelvinToCelsius } from "@/utils/convertKelvinToCelsius";
 import { getDayOrNightIcon } from "@/utils/getDayOrNightIcon";
@@ -148,7 +149,7 @@ export default function Home() {
                 <WeatherIcon iconName={getDayOrNightIcon(firstData?.weather[0].icon ?? '', firstData?.dt_txt ?? '')} />
               </Container>
               <Container className="bg-yellow-300/80 px-6 gap-4 justify-between overflow-x-auto">
-                
+                <WeatherDetails visability={} airPressure={} />
               </Container>
               {/* right */}
             </div>
