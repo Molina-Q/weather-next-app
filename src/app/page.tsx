@@ -183,11 +183,33 @@ export default function Home() {
         {/* 7 day forecast data */}
         <section className="flex w-full flex-col gap-4">
           <p className="text-2xl">Forecast (7 days)</p>
-
-          <ForecastWeatherDetail />
+          {firstDataForEachDate.map((d, i) =>  (
+            <ForecastWeatherDetail 
+            key={i} 
+            description={d?.weather[0].description ?? ""}
+            weatherIcon={d?.weather[0].icon ?? "01d"}
+            date={d ? format(parseISO(d.dt_txt), "dd.MM") : ""}
+            day={d ? format(parseISO(d.dt_txt), "EEEE") : "EEEE"}
+            feels_like={d?.main.feels_like ?? 0}
+            temp={d?.main.temp ?? 0}
+            temp_max={d?.main.temp_max ?? 0}
+            temp_min={d?.main.temp_min ?? 0}
+            airPressure={`${d?.main.pressure} hPa `}
+            humidity={`${d?.main.humidity}% `}
+            sunrise={format(
+              fromUnixTime(data?.city.sunrise ?? 1702517657),
+              "H:mm"
+            )}
+            sunset={format(
+              fromUnixTime(data?.city.sunset ?? 1702517657),
+              "H:mm"
+            )}
+            visability={`${metersToKilometers(d?.visibility ?? 10000)} `}
+            windSpeed={`${convertWindSpeed(d?.wind.speed ?? 1.64)} `}
+             />
+          ))}
         </section>
       </main>
     </div>
-    /* 56:42 */
   );
 }
